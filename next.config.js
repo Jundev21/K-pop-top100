@@ -6,8 +6,8 @@ const nextConfig = {
 
         return [
             {
-                source: "/melonPage",
-                destination: "https://www.melon.com/chart/index.htm",
+                source: "/:path*",
+                destination: "https://www.melon.com/:path*",
             },
         ];
     },
