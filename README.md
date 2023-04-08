@@ -1,38 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+개인프로젝트
 
-## Getting Started
+제작 의도 일본 / 중국 / 싱가폴 등 한류열풍으로 한국 노래, 음식 등 한국 문화에 대한 관심이 뜨겁습니다. 그중에서 BTS 로 K-pop 이 핫한데, 클럽, 식당등 유동인구가 많은 곳에서 쉽게 들어볼 수 있습니다. 좋은 노래들도 많은데 외국인들은 빌보드나 유튜브에서 나오는 한정적인 노래들만 접해서 아쉽게 느껴졌습니다. 멜론이나 벅스 같이 찐 한국인들을 위한 노래 탑 100 을 외국인들도 쉽게 접할 수 있도록 제작 해 봤습니다.
 
-First, run the development server:
+기술스택
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+프론트엔드 Next.js - seo 검색엔진 상승 Typescript - 안정성 React-Query - 이미지, state 캐싱 Redux-toolkit - 전역 스테이트 Styled-component - css 중복 선언 방지 mui - UI 라이브러리 사용
