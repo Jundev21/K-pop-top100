@@ -1,7 +1,8 @@
-const axios = require("axios");
-const cheerio = require("cheerio");
+import axios from "axios";
+import cheerio from "cheerio";
+import { MelonData } from "../types/dataTypes";
 
-let melonData = [];
+let melonData: MelonData[] = [];
 
 async function crwalingData() {
     let getHtml = await axios({
