@@ -2,8 +2,6 @@
 const nextConfig = {
     // reactStrictMode: true,
     async rewrites() {
-        console.log("Rewrites called");
-
         return [
             {
                 source: "/:path*",

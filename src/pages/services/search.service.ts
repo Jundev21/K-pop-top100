@@ -1,5 +1,6 @@
 import api from "./api";
-
+import axios from "axios";
+// 검색 결과 가져오기
 class AuthService {
     async getYoutubeLink(searchWord: string) {
         return api
@@ -9,6 +10,11 @@ class AuthService {
             .then((response) => {
                 return response.data;
             });
+    }
+    async getMelonHTML() {
+        return await axios.get(`/chart/index.htm`).then((response) => {
+            return response.data;
+        });
     }
 }
 

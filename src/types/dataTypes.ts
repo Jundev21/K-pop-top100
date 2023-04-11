@@ -3,6 +3,7 @@ export interface MelonData {
     albumImg: string | undefined;
     title: string;
     musician: string;
+    albumName: string;
 }
 
 export interface YouTubeQuery {
