@@ -2,32 +2,27 @@ import main from "../crwaling/getMelonData";
 import { useEffect, useState } from "react";
 import ServiceAPI from "../pages/services/search.service";
 import Header from "../components/header";
+import Footer from "@/components/footer";
 import styled from "styled-components";
 import MusicChart from "../components/musicChart";
 
 export default function Home() {
-    let [vdId, setVdId] = useState("");
-
-    // useEffect(() => {
-    //     async function axiosData() {
-    //         let a = await ServiceAPI.getYoutubeLink("꽃 지수");
-    //         let videoId = await a.items[0].id.videoId;
-    //         console.log(a);
-    //         await setVdId(videoId);
-    //     }
-    //     axiosData();
-    // }, []);
-
     return (
-        <div>
+        <>
             <Header />
             <BodyContainer>
-                <MusicChart vdId={vdId} />
+                <MusicChart />
             </BodyContainer>
-        </div>
+            <Footer />
+        </>
     );
 }
 
 const BodyContainer = styled.div`
-    margin: 5rem 15rem;
+    margin: 5rem 7rem;
+
+    @media (max-width: 768px) {
+        margin: 3rem;
+        /* padding: 3rem; */
+    }
 `;

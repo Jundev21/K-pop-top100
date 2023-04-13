@@ -7,7 +7,7 @@ export default function header() {
 
 const Header = styled.header`
     padding: 12px;
-    background-color: #310231;
+    background-color: #481349;
     color: white;
     font-size: 2rem;
     text-align: center;

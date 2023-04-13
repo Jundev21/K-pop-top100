@@ -9,6 +9,20 @@ const nextConfig = {
             },
         ];
     },
+
+    images: {
+        domains: ["cdnimg.melon.co.kr", "localhost"],
+    },
+    // images: {
+    //     remotePatterns: [
+    //         {
+    //             protocol: "https",
+    //             hostname: "cdnimg.melon.co.kr/",
+    //             port: "",
+    //             pathname: "/**",
+    //         },
+    //     ],
+    // },
 };
 
 module.exports = nextConfig;

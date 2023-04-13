@@ -1,4 +1,4 @@
-export interface MelonData {
+export interface MelonDataType {
     ranking: number;
     albumImg: string | undefined;
     title: string;
@@ -6,6 +6,6 @@ export interface MelonData {
     albumName: string;
 }
 
-export interface YouTubeQuery {
+export interface YouTubeQueryType {
     searchWord: string;
 }

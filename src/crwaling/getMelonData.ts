@@ -1,12 +1,12 @@
 import axios from "axios";
 import cheerio from "cheerio";
-import { MelonData } from "../types/dataTypes";
+import { MelonDataType } from "../types/dataTypes";
 import AuthService from "../pages/services/search.service";
-let melonData: MelonData[] = [];
 
 async function crwalingData() {
+    let melonData: MelonDataType[] = [];
     let getHtml = await AuthService.getMelonHTML();
-    let asyncData = await getHtml;
+    let asyncData = getHtml;
     if (asyncData) {
         const $ = cheerio.load(getHtml);
 
