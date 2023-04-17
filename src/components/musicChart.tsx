@@ -8,10 +8,13 @@ import youtubeImage from "../../public/images/youtube.png";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import ServiceAPI from "../pages/services/search.service";
+import { useQuery, useQueries } from "@tanstack/react-query";
 
 export default function MusicChart() {
+    const melonData = useQuery(["melonData"], () => getMelonData());
+
+    const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
     const [isClicked, setIsClicked] = useState(false);
-    const [melonData, setMelonData] = useState<MelonDataType[]>([]);
     const [vdId, setVdId] = useState<string>("");
     const [currMusic, setCurrMusic] = useState<number>(-1);
 
@@ -20,27 +23,39 @@ export default function MusicChart() {
         setVdId("");
     };
 
-    useEffect(() => {
-        async function axiosMelonData() {
-            let melonData = await getMelonData();
-            setMelonData(melonData);
-        }
-
-        axiosMelonData();
-    }, []);
-
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
-        async function axiosData() {
-            let getYoutubeVideo = await ServiceAPI.getYoutubeLink(title + " " + singer);
-            let videoId = getYoutubeVideo.items[0].id.videoId;
-            setVdId(videoId);
-        }
-        setCurrMusic(dataId);
-        handleModal();
-        // axiosData();
-
-        console.log("호출");
+        setRequestYouTube((pre) => ({ ...pre, [title]: title, [singer]: singer }));
     };
+
+    // const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
+
+    //     async function axiosData() {
+    //         let getYoutubeVideo = await ServiceAPI.getYoutubeLink(title + " " + singer);
+    //         let videoId = getYoutubeVideo.items[0].id.videoId;
+    //         setVdId(videoId);
+    //     }
+    //     setCurrMusic(dataId);
+    //     handleModal();
+    //     axiosData();
+
+    //     console.log("호출");
+    // };
+
+    // const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
+
+    //     async function axiosData() {
+    //         let getYoutubeVideo = await ServiceAPI.getYoutubeLink(title + " " + singer);
+    //         let videoId = getYoutubeVideo.items[0].id.videoId;
+    //         setVdId(videoId);
+    //     }
+    //     setCurrMusic(dataId);
+    //     handleModal();
+    //     axiosData();
+
+    //     console.log("호출");
+    // };
+
+    const youtubeData = useQuery(["youtubeData", getParam], () => getMelonData());
 
     return (
         <CharContainer>
@@ -59,8 +74,8 @@ export default function MusicChart() {
                 </TableRow>
 
                 <TableBody>
-                    {melonData &&
-                        melonData.map((el, idx) => {
+                    {melonData.data &&
+                        melonData.data.map((el, idx) => {
                             return (
                                 <BodyTableRow key={idx}>
                                     <TableRankingData>{el.ranking}</TableRankingData>
@@ -104,10 +119,12 @@ export default function MusicChart() {
             >
                 <ModalBox>
                     <div>
-                        {melonData && currMusic !== -1 && (
+                        {melonData.data && currMusic !== -1 && (
                             <MusicInfo>
-                                <MusicTitle>{melonData[currMusic].title} - </MusicTitle>
-                                <MusicSinger>&nbsp; {melonData[currMusic].musician}</MusicSinger>
+                                <MusicTitle>{melonData.data[currMusic].title} - </MusicTitle>
+                                <MusicSinger>
+                                    &nbsp; {melonData.data[currMusic].musician}
+                                </MusicSinger>
                                 <CloseMusicInfo onClick={handleModal}>x</CloseMusicInfo>
                             </MusicInfo>
                         )}
