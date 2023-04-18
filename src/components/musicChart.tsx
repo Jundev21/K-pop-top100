@@ -14,7 +14,12 @@ export default function MusicChart() {
     const melonData = useQuery(["melonData"], () => getMelonData());
 
     const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
+
     const [isClicked, setIsClicked] = useState(false);
+    const youtubeData = useQuery(["youtubeData", requestYouTube], () =>
+        ServiceAPI.getYoutubeLink(requestYouTube.title + " " + requestYouTube.singer)
+    );
+
     const [vdId, setVdId] = useState<string>("");
     const [currMusic, setCurrMusic] = useState<number>(-1);
 
@@ -24,7 +29,9 @@ export default function MusicChart() {
     };
 
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
-        setRequestYouTube((pre) => ({ ...pre, [title]: title, [singer]: singer }));
+        setRequestYouTube((pre) => ({ ...pre, title: title, singer: singer }));
+        handleModal();
+        setCurrMusic(dataId);
     };
 
     // const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
@@ -54,8 +61,6 @@ export default function MusicChart() {
 
     //     console.log("호출");
     // };
-
-    const youtubeData = useQuery(["youtubeData", getParam], () => getMelonData());
 
     return (
         <CharContainer>
@@ -128,10 +133,9 @@ export default function MusicChart() {
                                 <CloseMusicInfo onClick={handleModal}>x</CloseMusicInfo>
                             </MusicInfo>
                         )}
-
                         <YoutubePlayer
                             id="player"
-                            src={`http://www.youtube.com/embed/${vdId}?rel=0&autoplay=1&amp;controls=1&amp;showinfo=0&amp;enablejsapi=1&amp;version=3&allowfullscreen`}
+                            src={`http://www.youtube.com/embed/${youtubeData?.data?.items[0]?.id?.videoId}?rel=0&autoplay=1&amp;controls=1&amp;showinfo=0&amp;enablejsapi=1&amp;version=3&allowfullscreen`}
                         ></YoutubePlayer>
                     </div>
                 </ModalBox>

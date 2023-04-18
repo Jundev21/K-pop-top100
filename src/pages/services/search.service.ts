@@ -11,6 +11,7 @@ class AuthService {
                 `/search?maxResults=1&q=${searchWord}&part=snippet&key=${process.env.NEXT_PUBLIC_GOOGLE_KEY}`
             )
             .then((response) => {
+                console.log("success");
                 return response.data;
             });
     }
