@@ -12,22 +12,20 @@ import { useQuery, useQueries } from "@tanstack/react-query";
 
 export default function MusicChart() {
     const melonData = useQuery(["melonData"], () => getMelonData());
-
     const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
-
     const [isClicked, setIsClicked] = useState(false);
-    const youtubeData = useQuery(["youtubeData", requestYouTube], () =>
-        ServiceAPI.getYoutubeLink(requestYouTube.title + " " + requestYouTube.singer)
-    );
+    const youtubeData = useQuery(
+        ["youtubeData", requestYouTube],
+        () => ServiceAPI.getYoutubeLink(requestYouTube.title + " " + requestYouTube.singer),
 
+        { enabled: isClicked }
+    );
     const [vdId, setVdId] = useState<string>("");
     const [currMusic, setCurrMusic] = useState<number>(-1);
-
     const handleModal = () => {
         setIsClicked((pre) => !pre);
         setVdId("");
     };
-
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
         setRequestYouTube((pre) => ({ ...pre, title: title, singer: singer }));
         handleModal();
@@ -84,7 +82,6 @@ export default function MusicChart() {
                             return (
                                 <BodyTableRow key={idx}>
                                     <TableRankingData>{el.ranking}</TableRankingData>
-
                                     <TableData>
                                         {el.albumImg && (
                                             <Image
