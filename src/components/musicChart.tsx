@@ -17,8 +17,7 @@ export default function MusicChart() {
     const youtubeData = useQuery(
         ["youtubeData", requestYouTube],
         () => ServiceAPI.getYoutubeLink(requestYouTube.title + " " + requestYouTube.singer),
-
-        { enabled: isClicked }
+        { enabled: isClicked, staleTime: 1000 * 20 }
     );
     const [vdId, setVdId] = useState<string>("");
     const [currMusic, setCurrMusic] = useState<number>(-1);
