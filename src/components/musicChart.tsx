@@ -10,54 +10,39 @@ import Modal from "@mui/material/Modal";
 import ServiceAPI from "../pages/services/search.service";
 import { useQuery, useQueries } from "@tanstack/react-query";
 
+const HeaderData = [
+    { width: "5%", name: "Ranking" },
+    { width: "15%", name: "Album Image" },
+    { width: "15%", name: "Title" },
+    { width: "20%", name: "Singer" },
+    { width: "20%", name: "Album" },
+    { width: "25%", name: "Youtube" },
+];
+
 export default function MusicChart() {
     const melonData = useQuery(["melonData"], () => getMelonData());
+
     const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
+
     const [isClicked, setIsClicked] = useState(false);
+
     const youtubeData = useQuery(
         ["youtubeData", requestYouTube],
         () => ServiceAPI.getYoutubeLink(requestYouTube.title + " " + requestYouTube.singer),
         { enabled: isClicked, staleTime: 1000 * 20 }
     );
-    const [vdId, setVdId] = useState<string>("");
+
     const [currMusic, setCurrMusic] = useState<number>(-1);
+
     const handleModal = () => {
         setIsClicked((pre) => !pre);
-        setVdId("");
     };
+
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
         setRequestYouTube((pre) => ({ ...pre, title: title, singer: singer }));
         handleModal();
         setCurrMusic(dataId);
     };
-
-    // const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
-
-    //     async function axiosData() {
-    //         let getYoutubeVideo = await ServiceAPI.getYoutubeLink(title + " " + singer);
-    //         let videoId = getYoutubeVideo.items[0].id.videoId;
-    //         setVdId(videoId);
-    //     }
-    //     setCurrMusic(dataId);
-    //     handleModal();
-    //     axiosData();
-
-    //     console.log("호출");
-    // };
-
-    // const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
-
-    //     async function axiosData() {
-    //         let getYoutubeVideo = await ServiceAPI.getYoutubeLink(title + " " + singer);
-    //         let videoId = getYoutubeVideo.items[0].id.videoId;
-    //         setVdId(videoId);
-    //     }
-    //     setCurrMusic(dataId);
-    //     handleModal();
-    //     axiosData();
-
-    //     console.log("호출");
-    // };
 
     return (
         <CharContainer>
@@ -66,12 +51,13 @@ export default function MusicChart() {
             <TableContainer>
                 <TableRow>
                     <HeadTableRow>
-                        <TableHeader width={`5%`}>Ranking</TableHeader>
-                        <TableHeader width={`15%`}>Album Image</TableHeader>
-                        <TableHeader width={`15%`}>Title</TableHeader>
-                        <TableHeader width={`20%`}>Singer</TableHeader>
-                        <TableHeader width={`20%`}>Album</TableHeader>
-                        <TableHeader width={`25%`}>Youtube</TableHeader>
+                        {HeaderData.map((el, idx) => {
+                            return (
+                                <TableHeader key={idx} width={el.width}>
+                                    {el.name}
+                                </TableHeader>
+                            );
+                        })}
                     </HeadTableRow>
                 </TableRow>
 
