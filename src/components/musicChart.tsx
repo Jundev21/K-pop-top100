@@ -8,7 +8,8 @@ import youtubeImage from "../../public/images/youtube.png";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import ServiceAPI from "../pages/services/search.service";
-import { useQuery, useQueries } from "@tanstack/react-query";
+import useStore from "../store";
+import { useQuery } from "@tanstack/react-query";
 
 const HeaderData = [
     { width: "5%", name: "Ranking" },
@@ -21,6 +22,8 @@ const HeaderData = [
 
 export default function MusicChart() {
     const melonData = useQuery(["melonData"], () => getMelonData());
+
+    const { bears, increasePopulation, removeAllBears } = useStore();
 
     const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
 
@@ -36,6 +39,7 @@ export default function MusicChart() {
 
     const handleModal = () => {
         setIsClicked((pre) => !pre);
+        increasePopulation();
     };
 
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
