@@ -17,8 +17,6 @@ const TableHeader = styled.th<TableHeaderProps>`
     padding: 25px 15px;
     width: ${(props) => props.width};
     border-bottom: 1px solid #e5e5e5;
-
     background-color: #481349;
     color: white;
 `;
-3;

@@ -1,8 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import useStore from "@/store";
 
-export default function header() {
-    return <Header>K-Pop 100</Header>;
+export default function HeaderCompo() {
+    const { handleClicked } = useStore();
+
+    function handleaa() {
+        handleClicked();
+    }
+    return (
+        <Header>
+            K-Pop 100
+            <span onClick={handleaa}>Login</span>
+        </Header>
+    );
 }
 
 const Header = styled.header`

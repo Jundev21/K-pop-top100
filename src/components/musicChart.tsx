@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import TableHeader from "../components/tableHeader";
 import getMelonData from "../crwaling/getMelonData";
 import { MelonDataType } from "../types/dataTypes";
@@ -23,8 +23,6 @@ const HeaderData = [
 export default function MusicChart() {
     const melonData = useQuery(["melonData"], () => getMelonData());
 
-    const { bears, increasePopulation, removeAllBears } = useStore();
-
     const [requestYouTube, setRequestYouTube] = useState({ title: "", singer: "" });
 
     const [isClicked, setIsClicked] = useState(false);
@@ -39,8 +37,18 @@ export default function MusicChart() {
 
     const handleModal = () => {
         setIsClicked((pre) => !pre);
-        increasePopulation();
     };
+
+    useEffect(() => {
+        let timer: any;
+        if (!isClicked) {
+            timer = setTimeout(() => setIsClicked(false), 500);
+        }
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [isClicked]);
 
     const handleMusicYoutube = (dataId: number, title: string, singer: string) => {
         setRequestYouTube((pre) => ({ ...pre, title: title, singer: singer }));
@@ -108,7 +116,7 @@ export default function MusicChart() {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <ModalBox>
+                <ModalBox isClicked={isClicked}>
                     <div>
                         {melonData.data && currMusic !== -1 && (
                             <MusicInfo>
@@ -119,10 +127,11 @@ export default function MusicChart() {
                                 <CloseMusicInfo onClick={handleModal}>x</CloseMusicInfo>
                             </MusicInfo>
                         )}
-                        <YoutubePlayer
+                        <div>dd</div>
+                        {/* <YoutubePlayer
                             id="player"
                             src={`http://www.youtube.com/embed/${youtubeData?.data?.items[0]?.id?.videoId}?rel=0&autoplay=1&amp;controls=1&amp;showinfo=0&amp;enablejsapi=1&amp;version=3&allowfullscreen`}
-                        ></YoutubePlayer>
+                        ></YoutubePlayer> */}
                     </div>
                 </ModalBox>
             </ModalContainer>
@@ -159,7 +168,7 @@ const SubHeader = styled.header`
 const TableRow = styled.thead`
     position: sticky;
     top: 15px;
-    z-index: 2;
+    z-index: 1;
 `;
 
 const HeadTableRow = styled.tr``;
@@ -197,20 +206,38 @@ const YoutubePlayer = styled.iframe`
     }
 `;
 
-const ModalContainer = styled(Modal)`
-    @keyframes blowUpModalTwo {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(0);
-            opacity: 0;
-        }
+const ModalContainer = styled(Modal)``;
+
+// const modalSettings = (visible: boolean) => css`
+//   visibility: ${visible ? 'visible' : 'hidden'};
+//   z-index: 15;
+//   animation: ${visible ? fadeIn : fadeOut} 0.15s ease-out;
+//   transition: visibility 0.15s ease-out;
+// `;
+
+const blowUpModalTwo = keyframes`
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
     }
 `;
 
-const ModalBox = styled(Box)`
+const blowDownModalTwo = keyframes`
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+`;
+
+const ModalBox = styled(Box)<{ isClicked: boolean }>`
     position: absolute;
     top: 10%;
     left: 15%;
@@ -224,18 +251,8 @@ const ModalBox = styled(Box)`
     background: "#edebeb";
     color: "#606060";
 
-    animation: blowUpModalTwo 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-
-    @keyframes blowUpModalTwo {
-        0% {
-            transform: scale(0);
-            opacity: 0;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
+    animation: ${(props) => (props.isClicked ? blowUpModalTwo : blowDownModalTwo)} 1s
+        cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 
     @media (max-width: 768px) {
         top: 20%;
